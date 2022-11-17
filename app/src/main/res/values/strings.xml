@@ -2,8 +2,11 @@
     <string name="app_name">KotlinProject</string>
     <string name="go_to_activity_2">go to activity 2</string>
     <string name="click_me">Click me</string>
-    <string name="hello_world">Hello World!!!</string>
+    <string name="hello_world">"Hello \'@\' World!!!"</string>
     <string name="from_MainActivity">\" from MainActivity\"</string>
     <string name="no_data">No data</string>
     <string name="click_me_2">Click me 2</string>
+    <string name="display_text">Display text</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_password">Enter your password</string>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Котлин проект</string>
+    <string name="go_to_activity_2">Перейти на активити 2</string>
+    <string name="click_me">Нажми меня</string>
+    <string name="hello_world">"Привет мир!!!"</string>
+    <string name="from_MainActivity">\" с основной активити\"</string>
+    <string name="no_data">Нет данных</string>
+    <string name="click_me_2">Нажми меня 2</string>
+
+</resources>

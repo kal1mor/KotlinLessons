@@ -10,15 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinProject">
         <activity
-            android:name=".MainActivity2"
+            android:name=".MainActivity3"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
+            android:name=".MainActivity2"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
