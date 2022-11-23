@@ -9,17 +9,31 @@
         android:roundIcon="@mipmap/ic_amungus_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinProject">
+
+        <activity
+            android:name=".KotlinActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".MainActivity4"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".ListViewKotlinActivity"
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".MainActivity3"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+
         </activity>
         <activity
             android:name=".MainActivity2"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

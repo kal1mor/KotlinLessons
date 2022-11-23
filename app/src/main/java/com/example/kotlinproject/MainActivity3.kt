@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.kotlinproject.KotlinActivity.Companion.kotlinActivityStart
 import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity3 : AppCompatActivity() {
@@ -62,18 +63,19 @@ class MainActivity3 : AppCompatActivity() {
             if(editText2.text.toString().isEmpty()){
                 layout1.setErrorIconDrawable(R.drawable.ic_error)
                 editText.error = "email cant be empty"
-//                layout1.error = "email cant be empty"
+                layout1.error = "email cant be empty"
             }else if (editText2.text.toString().isEmpty()){
                 layout2.setErrorIconDrawable(R.drawable.ic_error)
                 editText2.error = "password cant be empty"
             }else{
+                kotlinActivityStart(this)
                 txtView.text = "${editText.text.toString()} ${editText2.text.toString()}"
             }
         }
 
-//        btnDisplayText1.setOnClickListener {
-//            txtView.text = "${editText.text.toString()} ${editText2.text.toString()}"
-//        }
+        btnDisplayText1.setOnClickListener {
+            txtView.text = "${editText.text.toString()} ${editText2.text.toString()}"
+        }
     }
 }
 
