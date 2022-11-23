@@ -8,5 +8,7 @@
     <string name="from_MainActivity">\" с основной активити\"</string>
     <string name="no_data">Нет данных</string>
     <string name="click_me_2">Нажми меня 2</string>
-
+    <string name="display_text">Текст на эеране</string>
+    <string name="enter_your_name">Введите имя</string>
+    <string name="enter_your_password">Введите пароль</string>
 </resources>
