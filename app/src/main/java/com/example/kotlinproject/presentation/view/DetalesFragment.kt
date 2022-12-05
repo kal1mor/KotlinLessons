@@ -1,4 +1,4 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.presentation.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,24 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.kotlinproject.R
+import com.example.kotlinproject.databinding.FragmentDetalesBinding
+import com.example.kotlinproject.databinding.FragmentItemsBinding
+import com.example.kotlinproject.databinding.FragmentOnBoardingBinding
 
 
 class DetalesFragment : Fragment() {
 
+    private var _viewBinding: FragmentDetalesBinding? = null
+    private val viewBinding get() = _viewBinding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detales, container, false)
+    ): View {
+        _viewBinding = FragmentDetalesBinding.inflate(inflater)
+        return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val detailsName = view.findViewById<TextView>(R.id.detalesName)
-        val detailsDate = view.findViewById<TextView>(R.id.detalesDate)
-        val detailsImage = view.findViewById<ImageView>(R.id.detalesImage)
 
         val bundle = arguments
 
@@ -33,9 +37,9 @@ class DetalesFragment : Fragment() {
             val date = safeBundle.getString("date")
             val image = safeBundle.getInt("imageVIew")
 
-            detailsName.text = name
-            detailsDate.text = date
-            detailsImage.setBackgroundResource(image)
+            viewBinding.detalesName.text = name
+            viewBinding.detalesDate.text = date
+            viewBinding.detalesImage.setBackgroundResource(image)
         }
     }
 }

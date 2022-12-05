@@ -1,4 +1,4 @@
-package com.example.kotlinproject.listener
+package com.example.kotlinproject.presentation.adapter.listener
 
 interface ItemsListener {
 
