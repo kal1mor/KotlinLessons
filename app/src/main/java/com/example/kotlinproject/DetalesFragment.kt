@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.kotlinproject.BundleConstants.KEY_IMAGE_VIEW
 
 
 class DetalesFragment : Fragment() {
@@ -29,9 +30,9 @@ class DetalesFragment : Fragment() {
         val bundle = arguments
 
         bundle?.let { safeBundle ->
-            val name = safeBundle.getString("name")
-            val date = safeBundle.getString("date")
-            val image = safeBundle.getInt("imageVIew")
+            val name = safeBundle.getString(ItemsFragment.Companion.KEY_NAME)
+            val date = safeBundle.getString(ItemsFragment.Companion.KEY_DATE) //ItemsFragment.Companion - отображает от куда взята (из какого фрагмента) константа
+            val image = safeBundle.getInt(KEY_IMAGE_VIEW)
 
             detailsName.text = name
             detailsDate.text = date

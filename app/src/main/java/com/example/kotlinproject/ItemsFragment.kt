@@ -10,10 +10,15 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlinproject.BundleConstants.KEY_IMAGE_VIEW
 import com.example.kotlinproject.adapter.ItemsAdapter
 import com.example.kotlinproject.adapter.ItemsViewHolder
 import com.example.kotlinproject.listener.ItemsListener
 import com.example.kotlinproject.model.ItemsModel
+
+
+//not use create constant like this, not beautiful
+//const val KEY_NAME = "name"
 
 class ItemsFragment : Fragment(), ItemsListener {
 
@@ -41,14 +46,16 @@ class ItemsFragment : Fragment(), ItemsListener {
             itemsAdapter.submitList(listItems)
         }
         viewMOdel.message.observe(viewLifecycleOwner) { msg ->
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(msg), Toast.LENGTH_SHORT).show()
+
         }
         viewMOdel.bundle.observe(viewLifecycleOwner){ navBundle ->
+            if (navBundle != null){
             val detailsFragment = DetalesFragment()
             val bundle = Bundle()
-            bundle.putString("name", navBundle.name)
-            bundle.putString("date", navBundle.date)
-            bundle.putInt("imageVIew", navBundle.image)
+            bundle.putString(KEY_NAME, navBundle.name)
+            bundle.putString(KEY_DATE, navBundle.date)
+            bundle.putInt(BundleConstants.KEY_IMAGE_VIEW, navBundle.image)
             detailsFragment.arguments = bundle
 
             //ADD method we will not use
@@ -58,6 +65,9 @@ class ItemsFragment : Fragment(), ItemsListener {
                 .replace(R.id.activity_container, detailsFragment)
                 .addToBackStack("Details")
                 .commit()
+            //in the end of our action
+            viewMOdel.userNavigated()
+            }
         }
     }
 
@@ -68,4 +78,12 @@ class ItemsFragment : Fragment(), ItemsListener {
     override fun onElementSelected(name: String, date: String, imageView: Int) {
         viewMOdel.elementClicked(name, date, imageView)
     }
+
+
+    companion object{
+        //Create constant, we can use it, bc we see where we get it
+        const val KEY_NAME = "name"
+        const val KEY_DATE = "date"
+    }
+
 }
