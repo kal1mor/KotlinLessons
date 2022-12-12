@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kotlinproject.model.ItemsModel
 
-class ItemsViewModel : ViewModel() {
+class ItemsViewModel(
+    private val itemsInteractor: ItemsIteractor
+) : ViewModel() {
 
     private val _items = MutableLiveData<List<ItemsModel>>()
     val items: LiveData<List<ItemsModel>> = _items
@@ -115,3 +117,8 @@ data class NavigateWithBundle(
     val name: String,
     val date: String
 )
+
+
+class ItemsIteractor{
+
+}

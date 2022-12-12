@@ -15,6 +15,7 @@ import com.example.kotlinproject.adapter.ItemsAdapter
 import com.example.kotlinproject.adapter.ItemsViewHolder
 import com.example.kotlinproject.listener.ItemsListener
 import com.example.kotlinproject.model.ItemsModel
+import com.example.kotlinproject.model.ItemsViewModelFactory
 
 
 //not use create constant like this, not beautiful
@@ -23,7 +24,9 @@ import com.example.kotlinproject.model.ItemsModel
 class ItemsFragment : Fragment(), ItemsListener {
 
     private lateinit var itemsAdapter: ItemsAdapter
-    private val viewMOdel: ItemsViewModel by viewModels()
+    private val viewMOdel: ItemsViewModel by viewModels{
+        ItemsViewModelFactory(ItemsIteractor())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
