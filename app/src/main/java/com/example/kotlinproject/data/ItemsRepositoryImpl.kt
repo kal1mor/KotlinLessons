@@ -1,24 +1,13 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.kotlinproject.model.ItemsModel
+import com.example.kotlinproject.R
+import com.example.kotlinproject.domain.ItemsRepository
+import com.example.kotlinproject.presentation.model.ItemsModel
 
-class ItemsViewModel(
-    private val itemsInteractor: ItemsIteractor
-) : ViewModel() {
+class ItemsRepositoryImpl : ItemsRepository {
 
-    private val _items = MutableLiveData<List<ItemsModel>>()
-    val items: LiveData<List<ItemsModel>> = _items
+    override fun getData(): List<ItemsModel> {
 
-    private val _message = MutableLiveData<Int>()
-    val message: LiveData<Int> = _message
-
-    private val _bundle = MutableLiveData<NavigateWithBundle?>()
-    val bundle: LiveData<NavigateWithBundle?> = _bundle
-
-    fun getData() {
         val listItems = listOf<ItemsModel>(
             ItemsModel(
                 R.drawable.dragon_fruit,
@@ -91,34 +80,9 @@ class ItemsViewModel(
                 "15.11.2022"
             )
         )
-        _items.value = listItems
+        return listItems
     }
 
-    fun imageViewClicked() {
-        _message.value = R.string.image_view_clicked
-    }
 
-    fun elementClicked(name: String, date: String, imageView: Int) {
-        _bundle.value = NavigateWithBundle(
-            name = name,
-            date = date,
-            image = imageView
-        )
-    }
-
-    fun userNavigated(){
-        _bundle.value = null
-    }
-
-}
-
-data class NavigateWithBundle(
-    val image: Int,
-    val name: String,
-    val date: String
-)
-
-
-class ItemsIteractor{
 
 }

@@ -1,12 +1,12 @@
-package com.example.kotlinproject.adapter
+package com.example.kotlinproject.presentation.adapter
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinproject.R
-import com.example.kotlinproject.listener.ItemsListener
-import com.example.kotlinproject.model.ItemsModel
+import com.example.kotlinproject.presentation.listener.ItemsListener
+import com.example.kotlinproject.presentation.model.ItemsModel
 
 class ItemsViewHolder(
     private val view: View,

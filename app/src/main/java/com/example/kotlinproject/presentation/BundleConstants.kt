@@ -1,4 +1,4 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.presentation
 
 object BundleConstants {
 

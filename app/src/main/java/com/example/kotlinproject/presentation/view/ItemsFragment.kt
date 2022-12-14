@@ -1,21 +1,23 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.presentation.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinproject.BundleConstants.KEY_IMAGE_VIEW
-import com.example.kotlinproject.adapter.ItemsAdapter
-import com.example.kotlinproject.adapter.ItemsViewHolder
-import com.example.kotlinproject.listener.ItemsListener
-import com.example.kotlinproject.model.ItemsModel
-import com.example.kotlinproject.model.ItemsViewModelFactory
+import com.example.kotlinproject.R
+import com.example.kotlinproject.data.ItemsRepositoryImpl
+import com.example.kotlinproject.domain.ItemsInteractor
+import com.example.kotlinproject.presentation.BundleConstants
+import com.example.kotlinproject.presentation.ItemsViewModel
+import com.example.kotlinproject.presentation.NavigationFragment
+import com.example.kotlinproject.presentation.adapter.ItemsAdapter
+import com.example.kotlinproject.presentation.listener.ItemsListener
+import com.example.kotlinproject.presentation.model.ItemsViewModelFactory
 
 
 //not use create constant like this, not beautiful
@@ -25,7 +27,7 @@ class ItemsFragment : Fragment(), ItemsListener {
 
     private lateinit var itemsAdapter: ItemsAdapter
     private val viewMOdel: ItemsViewModel by viewModels{
-        ItemsViewModelFactory(ItemsIteractor())
+        ItemsViewModelFactory(ItemsInteractor(ItemsRepositoryImpl()))
     }
 
     override fun onCreateView(
@@ -64,11 +66,9 @@ class ItemsFragment : Fragment(), ItemsListener {
             //ADD method we will not use
             //We will use replace
             //replace always have addToBackstack to go back, or if we don't have addToBackstack we will not back
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.activity_container, detailsFragment)
-                .addToBackStack("Details")
-                .commit()
+
             //in the end of our action
+                NavigationFragment.fmReplace(parentFragmentManager, detailsFragment, true)
             viewMOdel.userNavigated()
             }
         }

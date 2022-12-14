@@ -1,14 +1,14 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.presentation.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.viewModels
 import com.example.kotlinproject.databinding.FragmentOnBoardingBinding
-import com.example.kotlinproject.model.OnBoardingViewModel
+import com.example.kotlinproject.presentation.model.OnBoardingViewModel
+import com.example.kotlinproject.presentation.NavigationFragment.fmReplace
 
 class OnBoardingFragment : Fragment() {
 
@@ -34,10 +34,7 @@ class OnBoardingFragment : Fragment() {
 
         viewModel.nav.observe(viewLifecycleOwner){
             if (it!=null) {
-                parentFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.activity_container, ItemsFragment())
-                    .commit()
+                fmReplace(parentFragmentManager, ItemsFragment(), false)
                 viewModel.finishPerformed()
             }
         }

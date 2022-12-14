@@ -1,12 +1,12 @@
-package com.example.kotlinproject.model
+package com.example.kotlinproject.presentation.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.kotlinproject.ItemsIteractor
-import com.example.kotlinproject.ItemsViewModel
+import com.example.kotlinproject.domain.ItemsInteractor
+import com.example.kotlinproject.presentation.ItemsViewModel
 
 class ItemsViewModelFactory(
-    private val itemsInteractor: ItemsIteractor
+    private val itemsInteractor: ItemsInteractor
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
