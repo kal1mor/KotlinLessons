@@ -7,4 +7,8 @@
     <string name="you_are_on_details_fragment">You are on details fragment</string>
     <string name="dragon_fruit">Dragon fruit</string>
     <string name="image_view_clicked">ImageView clicked</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="go_to_onboarding">go to onboarding</string>
 </resources>
