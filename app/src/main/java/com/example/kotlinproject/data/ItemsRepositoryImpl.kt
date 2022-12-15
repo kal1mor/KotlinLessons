@@ -3,8 +3,10 @@ package com.example.kotlinproject.data
 import com.example.kotlinproject.R
 import com.example.kotlinproject.domain.ItemsRepository
 import com.example.kotlinproject.presentation.model.ItemsModel
+import javax.inject.Inject
 
-class ItemsRepositoryImpl : ItemsRepository {
+
+class ItemsRepositoryImpl @Inject constructor(): ItemsRepository {
 
     override fun getData(): List<ItemsModel> {
 

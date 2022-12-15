@@ -18,17 +18,16 @@ import com.example.kotlinproject.presentation.NavigationFragment
 import com.example.kotlinproject.presentation.adapter.ItemsAdapter
 import com.example.kotlinproject.presentation.listener.ItemsListener
 import com.example.kotlinproject.presentation.model.ItemsViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
 
 //not use create constant like this, not beautiful
 //const val KEY_NAME = "name"
-
+@AndroidEntryPoint
 class ItemsFragment : Fragment(), ItemsListener {
 
     private lateinit var itemsAdapter: ItemsAdapter
-    private val viewMOdel: ItemsViewModel by viewModels{
-        ItemsViewModelFactory(ItemsInteractor(ItemsRepositoryImpl()))
-    }
+    private val viewMOdel: ItemsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

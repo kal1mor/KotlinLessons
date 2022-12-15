@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.example.kotlinproject.R
 import com.example.kotlinproject.domain.ItemsInteractor
 import com.example.kotlinproject.presentation.model.ItemsModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ItemsViewModel(
+@HiltViewModel
+class ItemsViewModel @Inject constructor(
     private val itemsInteractor: ItemsInteractor
 ) : ViewModel() {
 
