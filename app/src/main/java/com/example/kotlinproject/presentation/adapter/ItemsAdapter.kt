@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinproject.R
 import com.example.kotlinproject.presentation.listener.ItemsListener
-import com.example.kotlinproject.presentation.model.ItemsModel
+import com.example.kotlinproject.domain.model.ItemsModel
 
 class ItemsAdapter(
     private  val itemsListener: ItemsListener

@@ -1,6 +1,6 @@
-package com.example.kotlinproject.domain
+package com.example.kotlinproject.domain.items
 
-import com.example.kotlinproject.presentation.model.ItemsModel
+import com.example.kotlinproject.domain.model.ItemsModel
 import javax.inject.Inject
 
 

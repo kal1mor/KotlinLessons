@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation.view
+package com.example.kotlinproject.presentation.view.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.kotlinproject.databinding.FragmentOnBoardingBinding
-import com.example.kotlinproject.presentation.model.OnBoardingViewModel
-import com.example.kotlinproject.presentation.NavigationFragment.fmReplace
+import com.example.kotlinproject.presentation.view.home.ItemsFragment
+import com.example.kotlinproject.utils.NavigationFragment.fmReplace
 
 class OnBoardingFragment : Fragment() {
 

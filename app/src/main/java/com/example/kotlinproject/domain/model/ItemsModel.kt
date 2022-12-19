@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation.model
+package com.example.kotlinproject.domain.model
 
 data class ItemsModel(
     val image: Int,

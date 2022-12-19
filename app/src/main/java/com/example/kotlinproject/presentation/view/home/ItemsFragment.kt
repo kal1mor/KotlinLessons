@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation.view
+package com.example.kotlinproject.presentation.view.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,14 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinproject.R
-import com.example.kotlinproject.data.ItemsRepositoryImpl
-import com.example.kotlinproject.domain.ItemsInteractor
-import com.example.kotlinproject.presentation.BundleConstants
+import com.example.kotlinproject.utils.BundleConstants
 import com.example.kotlinproject.presentation.ItemsViewModel
-import com.example.kotlinproject.presentation.NavigationFragment
+import com.example.kotlinproject.utils.NavigationFragment
 import com.example.kotlinproject.presentation.adapter.ItemsAdapter
 import com.example.kotlinproject.presentation.listener.ItemsListener
-import com.example.kotlinproject.presentation.model.ItemsViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 
 

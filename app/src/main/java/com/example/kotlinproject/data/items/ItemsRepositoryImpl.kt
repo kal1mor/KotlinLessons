@@ -1,8 +1,8 @@
-package com.example.kotlinproject.data
+package com.example.kotlinproject.data.items
 
 import com.example.kotlinproject.R
-import com.example.kotlinproject.domain.ItemsRepository
-import com.example.kotlinproject.presentation.model.ItemsModel
+import com.example.kotlinproject.domain.items.ItemsRepository
+import com.example.kotlinproject.domain.model.ItemsModel
 import javax.inject.Inject
 
 

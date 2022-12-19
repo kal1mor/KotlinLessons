@@ -1,8 +1,9 @@
-package com.example.kotlinproject.presentation
+package com.example.kotlinproject.utils
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.kotlinproject.R
+import dagger.hilt.android.AndroidEntryPoint
 
 object NavigationFragment {
 

@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation.view.dataBinding
+package com.example.kotlinproject.presentation.view.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentLoginBinding
-import com.example.kotlinproject.presentation.NavigationFragment.fmReplace
-import com.example.kotlinproject.presentation.view.OnBoardingFragment
+import com.example.kotlinproject.presentation.view.home.HomeFragment
+import com.example.kotlinproject.utils.NavigationFragment.fmReplace
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding : FragmentLoginBinding? = null
@@ -31,14 +34,19 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewModel = viewModel
-        binding.viewHandler = ViewHandler()
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.btnLogin.setOnClickListener {
+            viewModel.loginUser(
+                binding.etLogin.text.toString(),
+                binding.etPassword.text.toString()
+            )
+        }
+
+
+        viewModel.nav.observe(viewLifecycleOwner){
+            fmReplace(parentFragmentManager,HomeFragment(), false)
+        }
+
     }
 
-    inner class ViewHandler{
-        fun goToTheOnBoarding(){
-            fmReplace(parentFragmentManager, OnBoardingFragment(), false)
-        }
-    }
+
 }

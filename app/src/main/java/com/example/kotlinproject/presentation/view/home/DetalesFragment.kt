@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation.view
+package com.example.kotlinproject.presentation.view.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import com.example.kotlinproject.R
-import com.example.kotlinproject.presentation.BundleConstants.KEY_IMAGE_VIEW
+import com.example.kotlinproject.databinding.FragmentDetalesBinding
+import com.example.kotlinproject.databinding.FragmentLoginBinding
+import com.example.kotlinproject.presentation.view.auth.LoginFragment
+import com.example.kotlinproject.presentation.view.auth.LoginViewModel
+import com.example.kotlinproject.utils.BundleConstants.KEY_IMAGE_VIEW
+import com.example.kotlinproject.utils.NavigationFragment.fmReplace
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DetalesFragment : Fragment() {
+
+
+    private var _binding: FragmentDetalesBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel : DetaisViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,5 +52,16 @@ class DetalesFragment : Fragment() {
             detailsDate.text = date
             detailsImage.setBackgroundResource(image)
         }
+
+        binding.btnLogout.setOnClickListener {
+            viewModel.logoutUser()
+
+            viewModel.nav.observe(viewLifecycleOwner){
+                parentFragmentManager.beginTransaction()
+                    .add(R.id.activity_container, LoginFragment())
+                    .commit()
+            }
+        }
+
     }
 }
