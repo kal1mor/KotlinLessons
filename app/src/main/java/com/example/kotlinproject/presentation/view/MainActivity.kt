@@ -9,13 +9,15 @@ import com.example.kotlinproject.databinding.ActivityMainBinding
 import com.example.kotlinproject.presentation.view.auth.LoginFragment
 import com.example.kotlinproject.presentation.view.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainView {
 
     private var _binding: ActivityMainBinding? = null
 
-    private val vieModel: MainViewModel by viewModels()
+    @Inject
+    lateinit var mainPresenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,17 +25,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setContentView(_binding!!.root)
 
-        vieModel.checkUserExist()
 
-        vieModel.userExist.observe(this){
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.add(R.id.activity_container,
-                when(it){
-                    true -> HomeFragment()
-                    false -> LoginFragment()
-                }
-                )
-            fragmentTransaction.commit()
-        }
+        mainPresenter.setView(this)
+
+        mainPresenter.checkUserExist()
+
+
+
+
+    }
+
+    override fun userExistsResult(userExists: Boolean) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.activity_container,
+            when(userExists){
+                true -> HomeFragment()
+                false -> LoginFragment()
+            }
+        )
+        fragmentTransaction.commit()
     }
 }

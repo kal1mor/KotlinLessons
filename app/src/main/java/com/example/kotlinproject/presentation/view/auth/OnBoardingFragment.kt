@@ -9,13 +9,17 @@ import androidx.fragment.app.viewModels
 import com.example.kotlinproject.databinding.FragmentOnBoardingBinding
 import com.example.kotlinproject.presentation.view.home.ItemsFragment
 import com.example.kotlinproject.utils.NavigationFragment.fmReplace
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class OnBoardingFragment : Fragment() {
-
-    private val viewModel : OnBoardingViewModel by viewModels()
+@AndroidEntryPoint
+class OnBoardingFragment : Fragment(), OnBoardingView {
 
     private var _binding: FragmentOnBoardingBinding? = null
     private val binding: FragmentOnBoardingBinding get() = _binding!!
+
+    @Inject
+    lateinit var onBoardingPresenter: OnBoardingPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,15 +33,16 @@ class OnBoardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+        onBoardingPresenter.setView(this)
 
-        viewModel.nav.observe(viewLifecycleOwner){
-            if (it!=null) {
-                fmReplace(parentFragmentManager, ItemsFragment(), false)
-                viewModel.finishPerformed()
-            }
+        binding.btnFinish.setOnClickListener {
+            onBoardingPresenter.goToItemsFragment()
         }
 
+
+    }
+
+    override fun goToItemsFragment() {
+        fmReplace(parentFragmentManager, ItemsFragment(), false)
     }
 }

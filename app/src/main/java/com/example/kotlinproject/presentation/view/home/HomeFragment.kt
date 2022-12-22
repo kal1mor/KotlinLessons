@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentHomeBinding
-import com.example.kotlinproject.databinding.FragmentLoginBinding
-import com.example.kotlinproject.presentation.view.auth.LoginViewModel
 import com.example.kotlinproject.presentation.view.auth.OnBoardingFragment
 import com.example.kotlinproject.utils.NavigationFragment.fmReplace
 import dagger.hilt.android.AndroidEntryPoint

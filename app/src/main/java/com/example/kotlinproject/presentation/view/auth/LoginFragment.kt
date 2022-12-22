@@ -11,15 +11,18 @@ import com.example.kotlinproject.databinding.FragmentLoginBinding
 import com.example.kotlinproject.presentation.view.home.HomeFragment
 import com.example.kotlinproject.utils.NavigationFragment.fmReplace
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(), LoginView {
 
     private var _binding : FragmentLoginBinding? = null
     private val binding: FragmentLoginBinding get() = _binding!!
 
-    private val viewModel : LoginViewModel by viewModels()
+
+    @Inject
+    lateinit var loginPresenter: LoginPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,18 +37,24 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loginPresenter.setView(this)
+
         binding.btnLogin.setOnClickListener {
-            viewModel.loginUser(
+            loginPresenter.loginUser(
                 binding.etLogin.text.toString(),
                 binding.etPassword.text.toString()
             )
         }
 
 
-        viewModel.nav.observe(viewLifecycleOwner){
-            fmReplace(parentFragmentManager,HomeFragment(), false)
-        }
 
+
+
+
+    }
+
+    override fun userLoggedIn() {
+        fmReplace(parentFragmentManager,HomeFragment(), false)
     }
 
 

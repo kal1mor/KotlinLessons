@@ -6,25 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinproject.R
+import com.example.kotlinproject.domain.model.ItemsModel
 import com.example.kotlinproject.utils.BundleConstants
-import com.example.kotlinproject.presentation.ItemsViewModel
 import com.example.kotlinproject.utils.NavigationFragment
 import com.example.kotlinproject.presentation.adapter.ItemsAdapter
 import com.example.kotlinproject.presentation.listener.ItemsListener
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 //not use create constant like this, not beautiful
 //const val KEY_NAME = "name"
 @AndroidEntryPoint
-class ItemsFragment : Fragment(), ItemsListener {
+class ItemsFragment : Fragment(), ItemsListener, ItemsView {
 
     private lateinit var itemsAdapter: ItemsAdapter
-    private val viewMOdel: ItemsViewModel by viewModels()
+
+    @Inject
+    lateinit var itemsPresenter: ItemsPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,52 +39,58 @@ class ItemsFragment : Fragment(), ItemsListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        itemsPresenter.setView(this)
+
+
         itemsAdapter = ItemsAdapter(this)
-        val recylerView = view.findViewById<RecyclerView>(R.id.rcView)
-        recylerView.layoutManager = LinearLayoutManager(context)
-        recylerView.adapter = itemsAdapter
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rcView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = itemsAdapter
 
-        viewMOdel.getData()
-        viewMOdel.items.observe(viewLifecycleOwner){ listItems ->
-            itemsAdapter.submitList(listItems)
-        }
-        viewMOdel.message.observe(viewLifecycleOwner) { msg ->
-            Toast.makeText(context, getString(msg), Toast.LENGTH_SHORT).show()
+        itemsPresenter.getItems()
 
-        }
-        viewMOdel.bundle.observe(viewLifecycleOwner){ navBundle ->
-            if (navBundle != null){
-            val detailsFragment = DetalesFragment()
-            val bundle = Bundle()
-            bundle.putString(KEY_NAME, navBundle.name)
-            bundle.putString(KEY_DATE, navBundle.date)
-            bundle.putInt(BundleConstants.KEY_IMAGE_VIEW, navBundle.image)
-            detailsFragment.arguments = bundle
 
-            //ADD method we will not use
-            //We will use replace
-            //replace always have addToBackstack to go back, or if we don't have addToBackstack we will not back
-
-            //in the end of our action
-                NavigationFragment.fmReplace(parentFragmentManager, detailsFragment, true)
-            viewMOdel.userNavigated()
-            }
-        }
     }
 
     override fun onClick() {
-        viewMOdel.imageViewClicked()
+        itemsPresenter.imageViewClicked()
     }
 
     override fun onElementSelected(name: String, date: String, imageView: Int) {
-        viewMOdel.elementClicked(name, date, imageView)
+        itemsPresenter.itemClicked(name, date, imageView)
     }
 
 
-    companion object{
+    override fun itemsReceived(itemsList: List<ItemsModel>) {
+        itemsAdapter.submitList(itemsList)
+    }
+
+    override fun imageViewClicked(msg: Int) {
+        Toast.makeText(context, getString(msg), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun itemClicked(navigationData: NavigateWithBundle) {
+
+        val detailsFragment = DetalesFragment()
+        val bundle = Bundle()
+        bundle.putString(KEY_NAME, navigationData.name)
+        bundle.putString(KEY_DATE, navigationData.date)
+        bundle.putInt(BundleConstants.KEY_IMAGE_VIEW, navigationData.image)
+        detailsFragment.arguments = bundle
+
+        //ADD method we will not use
+        //We will use replace
+        //replace always have addToBackstack to go back, or if we don't have addToBackstack we will not back
+
+        //in the end of our action
+
+        NavigationFragment.fmReplace(parentFragmentManager, detailsFragment, true)
+    }
+
+    companion object {
         //Create constant, we can use it, bc we see where we get it
         const val KEY_NAME = "name"
         const val KEY_DATE = "date"
     }
-
 }
+
