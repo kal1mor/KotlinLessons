@@ -10,11 +10,9 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentDetalesBinding
-import com.example.kotlinproject.databinding.FragmentLoginBinding
-import com.example.kotlinproject.presentation.view.auth.LoginFragment
-import com.example.kotlinproject.presentation.view.auth.LoginViewModel
 import com.example.kotlinproject.utils.BundleConstants.KEY_IMAGE_VIEW
-import com.example.kotlinproject.utils.NavigationFragment.fmReplace
+import com.example.kotlinproject.utils.NavHelper.navigate
+import com.example.kotlinproject.utils.NavHelper.replaceGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,14 +22,15 @@ class DetalesFragment : Fragment() {
     private var _binding: FragmentDetalesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : DetaisViewModel by viewModels()
+    private val viewModel: DetaisViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentDetalesBinding.inflate(inflater)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detales, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +44,8 @@ class DetalesFragment : Fragment() {
 
         bundle?.let { safeBundle ->
             val name = safeBundle.getString(ItemsFragment.KEY_NAME)
-            val date = safeBundle.getString(ItemsFragment.KEY_DATE) //ItemsFragment.Companion - отображает от куда взята (из какого фрагмента) константа
+            val date =
+                safeBundle.getString(ItemsFragment.KEY_DATE) //ItemsFragment.Companion - отображает от куда взята (из какого фрагмента) константа
             val image = safeBundle.getInt(KEY_IMAGE_VIEW)
 
             detailsName.text = name
@@ -55,12 +55,10 @@ class DetalesFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             viewModel.logoutUser()
+        }
 
-            viewModel.nav.observe(viewLifecycleOwner){
-                parentFragmentManager.beginTransaction()
-                    .add(R.id.activity_container, LoginFragment())
-                    .commit()
-            }
+        viewModel.nav.observe(viewLifecycleOwner) {
+            navigate(it!!)
         }
 
     }

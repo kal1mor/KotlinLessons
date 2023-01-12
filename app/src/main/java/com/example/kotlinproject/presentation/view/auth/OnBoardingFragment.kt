@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentOnBoardingBinding
-import com.example.kotlinproject.presentation.view.home.ItemsFragment
-import com.example.kotlinproject.utils.NavigationFragment.fmReplace
+import com.example.kotlinproject.utils.NavHelper.navigate
+import com.example.kotlinproject.utils.NavHelper.replaceGraph
+
 
 class OnBoardingFragment : Fragment() {
 
@@ -34,7 +38,8 @@ class OnBoardingFragment : Fragment() {
 
         viewModel.nav.observe(viewLifecycleOwner){
             if (it!=null) {
-                fmReplace(parentFragmentManager, ItemsFragment(), false)
+                navigate(it.removeFragmentId)
+
                 viewModel.finishPerformed()
             }
         }

@@ -7,14 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinproject.R
 import com.example.kotlinproject.utils.BundleConstants
 import com.example.kotlinproject.presentation.ItemsViewModel
-import com.example.kotlinproject.utils.NavigationFragment
 import com.example.kotlinproject.presentation.adapter.ItemsAdapter
 import com.example.kotlinproject.presentation.listener.ItemsListener
+import com.example.kotlinproject.utils.NavHelper.navigateWithBundle
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -43,29 +44,30 @@ class ItemsFragment : Fragment(), ItemsListener {
         recylerView.adapter = itemsAdapter
 
         viewMOdel.getData()
-        viewMOdel.items.observe(viewLifecycleOwner){ listItems ->
+        viewMOdel.items.observe(viewLifecycleOwner) { listItems ->
             itemsAdapter.submitList(listItems)
         }
         viewMOdel.message.observe(viewLifecycleOwner) { msg ->
             Toast.makeText(context, getString(msg), Toast.LENGTH_SHORT).show()
 
         }
-        viewMOdel.bundle.observe(viewLifecycleOwner){ navBundle ->
-            if (navBundle != null){
-            val detailsFragment = DetalesFragment()
-            val bundle = Bundle()
-            bundle.putString(KEY_NAME, navBundle.name)
-            bundle.putString(KEY_DATE, navBundle.date)
-            bundle.putInt(BundleConstants.KEY_IMAGE_VIEW, navBundle.image)
-            detailsFragment.arguments = bundle
+        viewMOdel.bundle.observe(viewLifecycleOwner) { navBundle ->
+            if (navBundle != null) {
+                val bundle = Bundle()
+                bundle.putString(KEY_NAME, navBundle.name)
+                bundle.putString(KEY_DATE, navBundle.date)
+                bundle.putInt(BundleConstants.KEY_IMAGE_VIEW, navBundle.image)
 
-            //ADD method we will not use
-            //We will use replace
-            //replace always have addToBackstack to go back, or if we don't have addToBackstack we will not back
+                //ADD method we will not use
+                //We will use replace
+                //replace always have addToBackstack to go back, or if we don't have addToBackstack we will not back
 
-            //in the end of our action
-                NavigationFragment.fmReplace(parentFragmentManager, detailsFragment, true)
-            viewMOdel.userNavigated()
+                //in the end of our action
+                navigateWithBundle(
+                    navBundle.destinationId
+                    , bundle
+                )
+                viewMOdel.userNavigated()
             }
         }
     }
@@ -79,7 +81,7 @@ class ItemsFragment : Fragment(), ItemsListener {
     }
 
 
-    companion object{
+    companion object {
         //Create constant, we can use it, bc we see where we get it
         const val KEY_NAME = "name"
         const val KEY_DATE = "date"

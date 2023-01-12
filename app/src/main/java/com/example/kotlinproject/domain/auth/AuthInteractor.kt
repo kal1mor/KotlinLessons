@@ -6,7 +6,6 @@ class AuthInteractor @Inject constructor(
     private val authRepository: AuthRepository) {
 
     suspend fun loginUser (userName: String, userPassword: String){
-        throw Exception()
         authRepository.loginUser(userName,userPassword)
     }
 

@@ -8,15 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentHomeBinding
-import com.example.kotlinproject.databinding.FragmentLoginBinding
-import com.example.kotlinproject.presentation.view.auth.LoginViewModel
-import com.example.kotlinproject.presentation.view.auth.OnBoardingFragment
-import com.example.kotlinproject.utils.NavigationFragment.fmReplace
+import com.example.kotlinproject.utils.NavHelper.replaceGraph
+
 import com.example.kotlinproject.utils.coroutins.CoroutinsExamples
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -40,10 +38,10 @@ class HomeFragment : Fragment() {
 
         viewModel.showUserCreds()
 
-        CoroutinsExamples().testCoroutinCancel()
-
         binding.btnGoToOnBoarding.setOnClickListener {
-            fmReplace(parentFragmentManager, OnBoardingFragment(), false)
+            viewModel.userNavigate.observe(viewLifecycleOwner) {
+                replaceGraph(it!!)
+            }
         }
 
         viewModel.userCreds.observe(viewLifecycleOwner) {

@@ -13,7 +13,6 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun loginUser(userName: String, userPassword: String) {
         withContext(Dispatchers.IO) {
-            throw Exception()
             sharedPreferencesHelper.saveUserName(userName)
             sharedPreferencesHelper.saveUserPassword(userPassword)
         }
