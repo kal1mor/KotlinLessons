@@ -11,4 +11,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="go_to_onboarding">go to onboarding</string>
+    <string name="home_fragment">Home Fragment</string>
+    <string name="items_fragment">Items Fragment</string>
+    <string name="onboading_fragment">onBoading Fragment</string>
 </resources>

@@ -13,7 +13,7 @@ class OnBoardingViewModel: ViewModel() {
     val onBoardingText = MutableLiveData<String>("default value")
 
     fun finishButtonClicked(){
-        _nav.value = NavigateToItems(R.id.onBoardingFragment, R.id.action_onBoardingFragment_to_itemsFragment)
+        _nav.value = NavigateToItems(R.id.action_onBoardingFragment_to_itemsFragment, R.id.onBoardingFragment)
     }
 
     fun finishPerformed(){

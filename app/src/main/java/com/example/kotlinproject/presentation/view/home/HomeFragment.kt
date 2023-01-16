@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentHomeBinding
@@ -39,9 +40,7 @@ class HomeFragment : Fragment() {
         viewModel.showUserCreds()
 
         binding.btnGoToOnBoarding.setOnClickListener {
-            viewModel.userNavigate.observe(viewLifecycleOwner) {
-                replaceGraph(it!!)
-            }
+            findNavController().setGraph(R.navigation.main_graph)
         }
 
         viewModel.userCreds.observe(viewLifecycleOwner) {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentDetalesBinding
 import com.example.kotlinproject.utils.BundleConstants.KEY_IMAGE_VIEW
@@ -58,7 +59,11 @@ class DetalesFragment : Fragment() {
         }
 
         viewModel.nav.observe(viewLifecycleOwner) {
-            navigate(it!!)
+            if (it != null){
+                val navGraph = findNavController().navInflater.inflate(it)
+                navGraph.startDestination = R.id.loginFragment
+                findNavController().graph = navGraph
+            }
         }
 
     }
