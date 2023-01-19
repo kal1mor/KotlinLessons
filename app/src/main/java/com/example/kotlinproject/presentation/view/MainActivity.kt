@@ -51,14 +51,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
         binding.bottomNavigation.setupWithNavController(navController)
 
-        val btnav = AppBarConfiguration(
-            setOf(R.id.onBoardingFragment, R.id.itemsFragment)
-        )
-
-        NavigationUI.setupActionBarWithNavController(this, navController, btnav)
-
-
-
         vieModel.visibility.observe(this) {
             binding.bottomNavigation.visibility = it
         }

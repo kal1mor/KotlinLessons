@@ -1,5 +1,6 @@
 package com.example.kotlinproject.presentation.view.home
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.example.kotlinproject.databinding.FragmentDetalesBinding
 import com.example.kotlinproject.utils.BundleConstants.KEY_IMAGE_VIEW
 import com.example.kotlinproject.utils.NavHelper.navigate
 import com.example.kotlinproject.utils.NavHelper.replaceGraph
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,13 +47,10 @@ class DetalesFragment : Fragment() {
 
         bundle?.let { safeBundle ->
             val name = safeBundle.getString(ItemsFragment.KEY_NAME)
-            val date =
-                safeBundle.getString(ItemsFragment.KEY_DATE) //ItemsFragment.Companion - отображает от куда взята (из какого фрагмента) константа
-            val image = safeBundle.getInt(KEY_IMAGE_VIEW)
+            val image = safeBundle.getString(KEY_IMAGE_VIEW) //ItemsFragment.Companion - отображает от куда взята (из какого фрагмента) константа
 
             detailsName.text = name
-            detailsDate.text = date
-            detailsImage.setBackgroundResource(image)
+            Picasso.get().load(Uri.parse(image)).into(detailsImage)
         }
 
         binding.btnLogout.setOnClickListener {

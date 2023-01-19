@@ -54,9 +54,8 @@ class ItemsFragment : Fragment(), ItemsListener {
         viewMOdel.bundle.observe(viewLifecycleOwner) { navBundle ->
             if (navBundle != null) {
                 val bundle = Bundle()
-                bundle.putString(KEY_NAME, navBundle.name)
-                bundle.putString(KEY_DATE, navBundle.date)
-                bundle.putInt(BundleConstants.KEY_IMAGE_VIEW, navBundle.image)
+                bundle.putString(KEY_NAME, navBundle.description)
+                bundle.putString(BundleConstants.KEY_IMAGE_VIEW, navBundle.image)
 
                 //ADD method we will not use
                 //We will use replace
@@ -70,14 +69,18 @@ class ItemsFragment : Fragment(), ItemsListener {
                 viewMOdel.userNavigated()
             }
         }
+
+        viewMOdel.error.observe(viewLifecycleOwner){
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onClick() {
         viewMOdel.imageViewClicked()
     }
 
-    override fun onElementSelected(name: String, date: String, imageView: Int) {
-        viewMOdel.elementClicked(name, date, imageView)
+    override fun onElementSelected(description: String, image: String) {
+        viewMOdel.elementClicked(description, image)
     }
 
 
