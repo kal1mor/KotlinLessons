@@ -44,6 +44,7 @@ class ItemsFragment : Fragment(), ItemsListener {
         recylerView.adapter = itemsAdapter
 
         viewMOdel.getData()
+
         viewMOdel.items.observe(viewLifecycleOwner) { listItems ->
             itemsAdapter.submitList(listItems)
         }
@@ -81,6 +82,10 @@ class ItemsFragment : Fragment(), ItemsListener {
 
     override fun onElementSelected(description: String, image: String) {
         viewMOdel.elementClicked(description, image)
+    }
+
+    override fun onDeleteClicked(description: String) {
+        viewMOdel.deleteItem(description)
     }
 
 

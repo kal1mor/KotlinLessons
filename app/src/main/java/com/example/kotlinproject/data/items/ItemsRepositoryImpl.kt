@@ -1,38 +1,60 @@
 package com.example.kotlinproject.data.items
 
 import android.util.Log
+import com.example.kotlinproject.data.database.ItemsEntity
+import com.example.kotlinproject.data.database.dao.ItemsDao
 import com.example.kotlinproject.data.service.ApiService
 import com.example.kotlinproject.data.service.ApiServiceSecond
 import com.example.kotlinproject.domain.items.ItemsRepository
 import com.example.kotlinproject.domain.model.ItemsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
 
 class ItemsRepositoryImpl @Inject constructor(
     @Named("FIRST") private val apiService: ApiService,
-    @Named("SECOND") private val apiServiceSecond: ApiServiceSecond
+    @Named("SECOND") private val apiServiceSecond: ApiServiceSecond,
+    private val itemsDao: ItemsDao
 ) : ItemsRepository {
 
-    override suspend fun getData(): List<ItemsModel> {
+    override suspend fun getData() {
         return withContext(Dispatchers.IO) {
 
-            val responseSecond = apiServiceSecond.getPhotoById(3)
-            Log.w("second response", responseSecond.body()?.title.toString())
+            if (!itemsDao.doesItemsEntityExist()){
+                Log.w("getData", "data not exists")
+                val response = apiService.getData()
 
-            val responseSecondQuery = apiServiceSecond.getPhotoByTitle("aut ipsam quos ab placeat omnis")
-            Log.w("second response query", responseSecondQuery.body()!!.get(0).toString())
-
-            val response = apiService.getData()
-            response.body()?.sampleList?.let {
-                it.map {
-                    ItemsModel(it.description, it.imageUrl)
+                response.body()?.sampleList?.let {
+                    it.map {
+                        val itemsEntity = ItemsEntity(Random().nextInt(), it.description, it.imageUrl)
+                        itemsDao.insertItemsEntity(itemsEntity)
+                    }
                 }
-            } ?: kotlin.run {
-                emptyList()
             }
+        }
+    }
+
+    override suspend fun showData(): List<ItemsModel> {
+        return withContext(Dispatchers.IO) {
+            val itemsEntity = itemsDao.getItemsEntities()
+            itemsEntity.map {
+                ItemsModel(it.description, it.imageUrl)
+            }
+        }
+    }
+
+    override suspend fun deleteItemByDescription(description: String) {
+        withContext(Dispatchers.IO){
+            itemsDao.deleteItemEntityByDescription(description)
+        }
+    }
+
+    override suspend fun findItemByDescription(searchText: String) {
+        return withContext(Dispatchers.IO){
+            val itemsEntity = itemsDao.findItemEntityByDescription(searchText)
         }
     }
 }

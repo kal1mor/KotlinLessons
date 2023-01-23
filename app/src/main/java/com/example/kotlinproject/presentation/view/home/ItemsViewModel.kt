@@ -32,8 +32,8 @@ class ItemsViewModel @Inject constructor(
     fun getData() {
         viewModelScope.launch {
             try {
-                val listItems = itemsInteractor.getData()
-                _items.value = listItems
+                itemsInteractor.getData()
+                _items.value = itemsInteractor.showData()
             }catch (e: Exception){
                 _error.value = e.message.toString()
             }
@@ -53,6 +53,15 @@ class ItemsViewModel @Inject constructor(
         _bundle.value = null
     }
 
+    fun deleteItem(description: String){
+        viewModelScope.launch {
+            try {
+                itemsInteractor.deleteItemByDescription(description)
+            }catch (e: Exception){
+                _error.value = e.message.toString()
+            }
+        }
+    }
 }
 
 data class NavigateWithBundle(
