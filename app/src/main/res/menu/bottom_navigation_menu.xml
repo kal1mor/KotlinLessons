@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/onBoardingFragment"
-        android:title="@string/onboading_fragment"
+        android:id="@+id/favoritesFragment"
+        android:title="@string/favorites_fragment"
         android:icon="@drawable/home"/>
 
     <item

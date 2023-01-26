@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation
+package com.example.kotlinproject.presentation.view.home.items
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,6 @@ import com.example.kotlinproject.R
 import com.example.kotlinproject.domain.items.ItemsInteractor
 import com.example.kotlinproject.domain.model.ItemsModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,6 +59,12 @@ class ItemsViewModel @Inject constructor(
             }catch (e: Exception){
                 _error.value = e.message.toString()
             }
+        }
+    }
+
+    fun onFavClicked(description: String){
+        viewModelScope.launch {
+            itemsInteractor.onFavClicked(description)
         }
     }
 }

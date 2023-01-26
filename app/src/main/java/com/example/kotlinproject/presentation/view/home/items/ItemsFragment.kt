@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation.view.home
+package com.example.kotlinproject.presentation.view.home.items
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinproject.R
 import com.example.kotlinproject.utils.BundleConstants
-import com.example.kotlinproject.presentation.ItemsViewModel
 import com.example.kotlinproject.presentation.adapter.ItemsAdapter
 import com.example.kotlinproject.presentation.listener.ItemsListener
 import com.example.kotlinproject.utils.NavHelper.navigateWithBundle
@@ -86,6 +84,10 @@ class ItemsFragment : Fragment(), ItemsListener {
 
     override fun onDeleteClicked(description: String) {
         viewMOdel.deleteItem(description)
+    }
+
+    override fun onFavClicked(description: String) {
+        viewMOdel.onFavClicked(description)
     }
 
 

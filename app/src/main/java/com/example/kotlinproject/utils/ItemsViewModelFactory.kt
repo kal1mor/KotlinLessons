@@ -3,7 +3,7 @@ package com.example.kotlinproject.utils
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinproject.domain.items.ItemsInteractor
-import com.example.kotlinproject.presentation.ItemsViewModel
+import com.example.kotlinproject.presentation.view.home.items.ItemsViewModel
 
 class ItemsViewModelFactory(
     private val itemsInteractor: ItemsInteractor

@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation.view.home
+package com.example.kotlinproject.presentation.view.home.items
 
 import android.util.Log
 import androidx.lifecycle.LiveData

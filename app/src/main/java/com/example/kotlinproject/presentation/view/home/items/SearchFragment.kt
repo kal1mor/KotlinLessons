@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation.view.home
+package com.example.kotlinproject.presentation.view.home.items
 
 import android.net.Uri
 import android.os.Bundle
@@ -8,14 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
-import com.example.kotlinproject.R
-import com.example.kotlinproject.databinding.FragmentHomeBinding
 import com.example.kotlinproject.databinding.FragmentSearchBinding
-import com.example.kotlinproject.presentation.ItemsViewModel
-import com.example.kotlinproject.presentation.adapter.ItemsAdapter
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
@@ -41,7 +38,7 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.fintItem(newText?:"")
+                viewModel.findItem(newText?:"")
                 return false
             }
         })

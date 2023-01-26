@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/itemsFragment"
-        android:name="com.example.kotlinproject.presentation.view.home.ItemsFragment"
+        android:name="com.example.kotlinproject.presentation.view.home.items.ItemsFragment"
         android:label="fragment_items"
         tools:layout="@layout/fragment_items" >
         <action
@@ -24,12 +24,17 @@
     </fragment>
     <fragment
         android:id="@+id/detalesFragment"
-        android:name="com.example.kotlinproject.presentation.view.home.DetalesFragment"
+        android:name="com.example.kotlinproject.presentation.view.home.items.DetalesFragment"
         android:label="fragment_detales"
         tools:layout="@layout/fragment_detales" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.kotlinproject.presentation.view.home.SearchFragment"
+        android:name="com.example.kotlinproject.presentation.view.home.items.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.kotlinproject.presentation.view.home.items.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
 </navigation>

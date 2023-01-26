@@ -1,4 +1,4 @@
-package com.example.kotlinproject.presentation.view.home
+package com.example.kotlinproject.presentation.view.home.items
 
 import android.net.Uri
 import android.os.Bundle
@@ -13,8 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentDetalesBinding
 import com.example.kotlinproject.utils.BundleConstants.KEY_IMAGE_VIEW
-import com.example.kotlinproject.utils.NavHelper.navigate
-import com.example.kotlinproject.utils.NavHelper.replaceGraph
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 

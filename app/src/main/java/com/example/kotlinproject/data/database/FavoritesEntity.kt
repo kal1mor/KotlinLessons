@@ -4,13 +4,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity("ItemsEntity")
-data class ItemsEntity(
-    @PrimaryKey (autoGenerate = false)
+@Entity("FavoritesEntity")
+class FavoritesEntity(
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo("id")
     val id: Int,
     @ColumnInfo("description")
     val description: String,
-    @ColumnInfo("imageUrl3")
+    @ColumnInfo("imageUrl")
     val imageUrl: String
 )
