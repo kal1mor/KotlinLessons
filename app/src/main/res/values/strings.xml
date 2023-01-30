@@ -16,4 +16,6 @@
     <string name="onboading_fragment">onBoading Fragment</string>
     <string name="search_fragment">Search Fragment</string>
     <string name="favorites_fragment">Favorites Fragment</string>
+    <string name="start">start</string>
+    <string name="stop">stop</string>
 </resources>

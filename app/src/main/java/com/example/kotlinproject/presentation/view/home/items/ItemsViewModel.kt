@@ -8,6 +8,9 @@ import com.example.kotlinproject.R
 import com.example.kotlinproject.domain.items.ItemsInteractor
 import com.example.kotlinproject.domain.model.ItemsModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,8 +19,7 @@ class ItemsViewModel @Inject constructor(
     private val itemsInteractor: ItemsInteractor
 ) : ViewModel() {
 
-    private val _items = MutableLiveData<List<ItemsModel>>()
-    val items: LiveData<List<ItemsModel>> = _items
+    val items = flow<Flow<List<ItemsModel>>>{ emit(itemsInteractor.showData()) }
 
     private val _message = MutableLiveData<Int>()
     val message: LiveData<Int> = _message
@@ -32,11 +34,22 @@ class ItemsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 itemsInteractor.getData()
-                _items.value = itemsInteractor.showData()
             }catch (e: Exception){
                 _error.value = e.message.toString()
             }
         }
+
+//        viewModelScope.launch {
+//            try {
+//
+//                val listItems = itemsInteractor.showData()
+//                listItems.collect{
+//                    _items.value = it
+//                }
+//            }catch (e: Exception){
+//                _error.value = e.message.toString()
+//            }
+//        }
     }
 
     fun imageViewClicked() {

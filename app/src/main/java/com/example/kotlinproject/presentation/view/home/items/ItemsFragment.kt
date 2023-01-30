@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinproject.R
@@ -15,6 +16,8 @@ import com.example.kotlinproject.presentation.adapter.ItemsAdapter
 import com.example.kotlinproject.presentation.listener.ItemsListener
 import com.example.kotlinproject.utils.NavHelper.navigateWithBundle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 
 
 //not use create constant like this, not beautiful
@@ -43,8 +46,16 @@ class ItemsFragment : Fragment(), ItemsListener {
 
         viewMOdel.getData()
 
-        viewMOdel.items.observe(viewLifecycleOwner) { listItems ->
-            itemsAdapter.submitList(listItems)
+//        viewMOdel.items.observe(viewLifecycleOwner) { listItems ->
+//            itemsAdapter.submitList(listItems)
+//        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            viewMOdel.items.collect{ flowList ->
+                flowList.collect{ list ->
+                    itemsAdapter.submitList(list)
+                }
+            }
         }
         viewMOdel.message.observe(viewLifecycleOwner) { msg ->
             Toast.makeText(context, getString(msg), Toast.LENGTH_SHORT).show()

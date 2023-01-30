@@ -1,5 +1,6 @@
 package com.example.kotlinproject.presentation.view.home.items
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import com.example.kotlinproject.databinding.FragmentSearchBinding
+import com.example.kotlinproject.presentation.view.home.items.service.MusicPlayer
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +32,14 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.start.setOnClickListener {
+            requireActivity().startService(Intent(requireContext(), MusicPlayer::class.java))
+        }
+
+        binding.stop.setOnClickListener {
+            requireActivity().stopService(Intent(requireContext(), MusicPlayer::class.java))
+        }
 
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
 
