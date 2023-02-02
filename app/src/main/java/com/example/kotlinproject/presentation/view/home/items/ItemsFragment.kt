@@ -58,9 +58,9 @@ class ItemsFragment : Fragment(), ItemsListener {
 //        }
 
         //Способ 3, вызов suspend ункции в model
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            viewMOdel.getDataSimple()
-        }
+//        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+//            viewMOdel.getDataSimple()
+//        }
 //        viewMOdel.items.observe(viewLifecycleOwner) { listItems ->
 //            itemsAdapter.submitList(listItems)
 //        }
@@ -72,9 +72,9 @@ class ItemsFragment : Fragment(), ItemsListener {
                 }
             }
         }
+
         viewMOdel.message.observe(viewLifecycleOwner) { msg ->
             Toast.makeText(context, getString(msg), Toast.LENGTH_SHORT).show()
-
         }
         viewMOdel.bundle.observe(viewLifecycleOwner) { navBundle ->
             if (navBundle != null) {

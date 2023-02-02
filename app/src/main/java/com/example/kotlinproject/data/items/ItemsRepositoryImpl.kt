@@ -27,18 +27,17 @@ class ItemsRepositoryImpl @Inject constructor(
 
     override suspend fun getData() {
         return withContext(Dispatchers.IO) {
-            itemsDao.doesItemsEntityExist().collect{
-                if (!it) {
-                    Log.w("getData", "data not exists")
-                    val response = apiService.getData()
+            val itemExists = itemsDao.doesItemsEntityExist()
+            if (!itemExists) {
+                Log.w("getData", "data not exists")
+                val response = apiService.getData()
 
-                    Log.w("getData", response.body()?.sampleList.toString())
-                    response.body()?.sampleList?.let {
-                        it.map {
-                            val itemsEntity =
-                                ItemsEntity(Random().nextInt(), it.description, it.imageUrl)
-                            itemsDao.insertItemsEntity(itemsEntity)
-                        }
+                Log.w("getData", response.body()?.sampleList.toString())
+                response.body()?.sampleList?.let {
+                    it.map {
+                        val itemsEntity =
+                            ItemsEntity(Random().nextInt(), it.description, it.imageUrl)
+                        itemsDao.insertItemsEntity(itemsEntity)
                     }
                 }
             }
@@ -57,20 +56,20 @@ class ItemsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteItemByDescription(description: String) {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             itemsDao.deleteItemEntityByDescription(description)
         }
     }
 
     override suspend fun findItemByDescription(searchText: String): ItemsModel {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             val itemsEntity = itemsDao.findItemEntityByDescription(searchText)
             ItemsModel(itemsEntity.description, itemsEntity.imageUrl)
         }
     }
 
     override suspend fun favClicked(itemsModel: ItemsModel) {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             itemsDao.insetFavoritesEntity(
                 FavoritesEntity(
                     Random().nextInt(),
