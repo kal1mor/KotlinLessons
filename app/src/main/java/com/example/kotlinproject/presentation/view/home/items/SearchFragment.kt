@@ -34,7 +34,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.start.setOnClickListener {
-            requireActivity().startService(Intent(requireContext(), MusicPlayer::class.java))
+            requireActivity().startForegroundService(Intent(requireContext(), MusicPlayer::class.java))
         }
 
         binding.stop.setOnClickListener {

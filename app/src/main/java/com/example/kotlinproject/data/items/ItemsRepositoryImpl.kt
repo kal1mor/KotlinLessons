@@ -31,6 +31,7 @@ class ItemsRepositoryImpl @Inject constructor(
                 if (!it) {
                     Log.w("getData", "data not exists")
                     val response = apiService.getData()
+
                     Log.w("getData", response.body()?.sampleList.toString())
                     response.body()?.sampleList?.let {
                         it.map {

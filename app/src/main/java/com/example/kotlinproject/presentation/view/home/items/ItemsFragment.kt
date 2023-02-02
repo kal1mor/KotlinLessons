@@ -44,8 +44,23 @@ class ItemsFragment : Fragment(), ItemsListener {
         recylerView.layoutManager = LinearLayoutManager(context)
         recylerView.adapter = itemsAdapter
 
-        viewMOdel.getData()
+        //Способ 1
+//        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+//            viewMOdel.getData.collect()
+//        }
 
+        //Способ 2,  обертка флоу в лайф дату
+//        viewMOdel.getData()
+//        viewMOdel.trigger.observe(viewLifecycleOwner) {
+//            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+//                it.collect()
+//            }
+//        }
+
+        //Способ 3, вызов suspend ункции в model
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            viewMOdel.getDataSimple()
+        }
 //        viewMOdel.items.observe(viewLifecycleOwner) { listItems ->
 //            itemsAdapter.submitList(listItems)
 //        }

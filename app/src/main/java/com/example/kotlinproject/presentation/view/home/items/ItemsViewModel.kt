@@ -20,6 +20,10 @@ class ItemsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val items = flow<Flow<List<ItemsModel>>>{ emit(itemsInteractor.showData()) }
+    val getData = flow {emit(itemsInteractor.getData())}
+
+    private val _trigger = MutableLiveData<Flow<Unit>>()
+    val trigger = _trigger
 
     private val _message = MutableLiveData<Int>()
     val message: LiveData<Int> = _message
@@ -33,7 +37,8 @@ class ItemsViewModel @Inject constructor(
     fun getData() {
         viewModelScope.launch {
             try {
-                itemsInteractor.getData()
+                _trigger.value = flow { emit(itemsInteractor.getData()) }
+//                itemsInteractor.getData()
             }catch (e: Exception){
                 _error.value = e.message.toString()
             }
@@ -79,6 +84,10 @@ class ItemsViewModel @Inject constructor(
         viewModelScope.launch {
             itemsInteractor.onFavClicked(description)
         }
+    }
+
+    suspend fun getDataSimple(){
+        itemsInteractor.getData()
     }
 }
 
