@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kotlinproject">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".utils.App"
@@ -13,6 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinProject">
         <activity
+            android:name=".presentation.view.SecondActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".presentation.view.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -22,9 +29,10 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".presentation.view.home.items.service.MusicPlayer"
+        <service
+            android:name=".presentation.view.home.items.service.MusicPlayer"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
     </application>
 
 </manifest>

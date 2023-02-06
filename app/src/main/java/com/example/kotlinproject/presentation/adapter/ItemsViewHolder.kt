@@ -39,7 +39,10 @@ class ItemsViewHolder(
             itemsListener.onDeleteClicked(itemsModel.description)
         }
 
+
+
         favImage.setOnClickListener {
+            favImage.isSelected = !it.isSelected
             itemsListener.onFavClicked(itemsModel.description)
         }
 
