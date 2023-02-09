@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotlinproject.R
 import com.example.kotlinproject.domain.auth.AuthInteractor
-import dagger.Module
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+
 class LoginViewModel @Inject constructor(private val authInteractor: AuthInteractor): ViewModel() {
 
     private val _nav = MutableLiveData<Int?>()

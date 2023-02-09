@@ -20,6 +20,9 @@ interface ItemsDao {
     @Query("SELECT * FROM ItemsEntity")
     fun getItemsEntities():Flow<List<ItemsEntity>>
 
+    @Query("UPDATE ItemsEntity SET isFavorite =:isFavorite WHERE description =:description")
+    fun addToFavorite(description: String, isFavorite: Boolean)
+
     @Query("DELETE FROM ItemsEntity WHERE description =:description")
     fun deleteItemEntityByDescription(description: String)
 

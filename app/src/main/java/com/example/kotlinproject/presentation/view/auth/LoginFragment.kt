@@ -1,26 +1,25 @@
 package com.example.kotlinproject.presentation.view.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.kotlinproject.R
+import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinproject.databinding.FragmentLoginBinding
+import com.example.kotlinproject.utils.App
+import com.example.kotlinproject.utils.BaseFragment
 import com.example.kotlinproject.utils.NavHelper.navigate
+import javax.inject.Inject
 
-import dagger.hilt.android.AndroidEntryPoint
 
-
-@AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     private var _binding : FragmentLoginBinding? = null
     private val binding: FragmentLoginBinding get() = _binding!!
 
-    private val viewModel : LoginViewModel by viewModels()
+    private val viewModel : LoginViewModel by viewModels{viewModelFactory}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +34,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity().applicationContext as App).provideAppComponent().inject(this)
         binding.btnLogin.setOnClickListener {
             viewModel.loginUser(
                 binding.etLogin.text.toString(),

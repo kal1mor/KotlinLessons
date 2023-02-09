@@ -32,20 +32,18 @@ class ItemsViewHolder(
             itemsListener.onElementSelected(
                 itemsModel.description,
                 itemsModel.image
-
             )
         }
+
         deleteView.setOnClickListener{
             itemsListener.onDeleteClicked(itemsModel.description)
         }
 
-
+        favImage.isSelected = itemsModel.isFavorite
 
         favImage.setOnClickListener {
             favImage.isSelected = !it.isSelected
-            itemsListener.onFavClicked(itemsModel.description)
+            itemsListener.onFavClicked(itemsModel.description, it.isSelected)
         }
-
     }
-
 }

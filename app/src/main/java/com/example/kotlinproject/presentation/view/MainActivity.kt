@@ -1,39 +1,43 @@
 package com.example.kotlinproject.presentation.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.ActivityMainBinding
-import com.example.kotlinproject.presentation.view.auth.LoginFragment
-import com.example.kotlinproject.presentation.view.home.HomeFragment
-import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
+import com.example.kotlinproject.utils.App
+import javax.inject.Inject
 
-@AndroidEntryPoint
+
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val vieModel: MainViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val vieModel: MainViewModel by viewModels{viewModelFactory}
 
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(R.layout.activity_main)
         setContentView(binding.root)
+
+        (applicationContext as App).provideAppComponent().inject(this)
 
         vieModel.checkUserExist()
 

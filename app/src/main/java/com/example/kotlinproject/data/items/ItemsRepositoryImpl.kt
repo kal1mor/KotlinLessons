@@ -27,7 +27,7 @@ class ItemsRepositoryImpl @Inject constructor(
 
     override suspend fun getData() {
         return withContext(Dispatchers.IO) {
-            itemsDao.doesItemsEntityExist().collect{
+            itemsDao.doesItemsEntityExist().collect {
                 if (!it) {
                     Log.w("getData", "data not exists")
                     val response = apiService.getData()
@@ -50,30 +50,38 @@ class ItemsRepositoryImpl @Inject constructor(
             val itemsEntity = itemsDao.getItemsEntities()
             itemsEntity.map { itemsList ->
                 itemsList.map { item ->
-                    ItemsModel(item.description, item.imageUrl)
+                    ItemsModel(item.id, item.description, item.imageUrl, item.isFavorite ?: false)
                 }
             }
         }
     }
 
     override suspend fun deleteItemByDescription(description: String) {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             itemsDao.deleteItemEntityByDescription(description)
         }
     }
 
     override suspend fun findItemByDescription(searchText: String): ItemsModel {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             val itemsEntity = itemsDao.findItemEntityByDescription(searchText)
-            ItemsModel(itemsEntity.description, itemsEntity.imageUrl)
+            ItemsModel(
+                itemsEntity.id,
+                itemsEntity.description,
+                itemsEntity.imageUrl,
+                itemsEntity.isFavorite ?: false
+            )
         }
     }
 
-    override suspend fun favClicked(itemsModel: ItemsModel) {
-        return withContext(Dispatchers.IO){
+    override suspend fun favClicked(itemsModel: ItemsModel, isFavorite: Boolean) {
+        return withContext(Dispatchers.IO) {
+
+            itemsDao.addToFavorite(itemsModel.description, isFavorite)
+
             itemsDao.insetFavoritesEntity(
                 FavoritesEntity(
-                    Random().nextInt(),
+                    itemsModel.id,
                     itemsModel.description,
                     itemsModel.image
                 )

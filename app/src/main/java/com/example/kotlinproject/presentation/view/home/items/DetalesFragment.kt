@@ -2,28 +2,33 @@ package com.example.kotlinproject.presentation.view.home.items
 
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentDetalesBinding
+import com.example.kotlinproject.utils.App
+import com.example.kotlinproject.utils.BaseFragment
 import com.example.kotlinproject.utils.BundleConstants.KEY_IMAGE_VIEW
 import com.squareup.picasso.Picasso
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
-class DetalesFragment : Fragment() {
+
+class DetalesFragment : BaseFragment() {
 
 
     private var _binding: FragmentDetalesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: DetaisViewModel by viewModels()
+
+
+    private val viewModel: DetaisViewModel by viewModels{viewModelFactory}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +42,7 @@ class DetalesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity().applicationContext as App).provideAppComponent().inject(this)
         val detailsName = view.findViewById<TextView>(R.id.detalesName)
         val detailsDate = view.findViewById<TextView>(R.id.detalesDate)
         val detailsImage = view.findViewById<ImageView>(R.id.detalesImage)

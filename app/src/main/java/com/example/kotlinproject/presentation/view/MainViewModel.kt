@@ -8,11 +8,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDestination
 import com.example.kotlinproject.R
 import com.example.kotlinproject.domain.auth.AuthInteractor
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class MainViewModel @Inject constructor(
     private val authInteractor: AuthInteractor
 ): ViewModel() {

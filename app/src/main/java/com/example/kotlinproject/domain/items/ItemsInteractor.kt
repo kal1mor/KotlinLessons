@@ -26,9 +26,9 @@ class ItemsInteractor @Inject constructor(
         return itemsRepository.findItemByDescription(searchText)
     }
 
-    suspend fun onFavClicked(description: String){
+    suspend fun onFavClicked(description: String, isFavorite: Boolean){
         val foundItem = findItemByDescription(description)
-        itemsRepository.favClicked(foundItem)
+        itemsRepository.favClicked(foundItem, isFavorite)
     }
 
     suspend fun getFavorites(): List<FavoritesModel>{
