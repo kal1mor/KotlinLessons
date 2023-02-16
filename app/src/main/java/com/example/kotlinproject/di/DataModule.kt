@@ -9,10 +9,12 @@ import com.example.kotlinproject.data.service.ApiServiceSecond
 import com.example.kotlinproject.data.shredpreferences.SharedPreferencesHelper
 import com.example.kotlinproject.domain.auth.AuthRepository
 import com.example.kotlinproject.domain.items.ItemsRepository
+import com.example.kotlinproject.utils.rx.RxJavaExample
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 
@@ -56,6 +58,7 @@ abstract class DataModule {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
         }
 

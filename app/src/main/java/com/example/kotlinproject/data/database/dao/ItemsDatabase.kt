@@ -29,6 +29,7 @@ abstract class ItemsDatabase : RoomDatabase() {
                     ItemsDatabase::class.java,
                     DB_NAME
                 )
+                .allowMainThreadQueries()
                 .addMigrations(MIGRATION_2_TO_3)
                 .build()
                 .also { BD_INSTANCE = it }

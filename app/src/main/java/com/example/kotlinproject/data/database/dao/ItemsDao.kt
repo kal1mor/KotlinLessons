@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy.Companion.IGNORE
 import androidx.room.Query
 import com.example.kotlinproject.data.database.FavoritesEntity
 import com.example.kotlinproject.data.database.ItemsEntity
+import io.reactivex.Observable
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,10 +16,10 @@ interface ItemsDao {
     fun insertItemsEntity(itemsEntity: ItemsEntity)
 
     @Query("SELECT (SELECT COUNT(*) FROM ItemsEntity) !=0")
-    fun doesItemsEntityExist(): Flow<Boolean>
+    fun doesItemsEntityExist(): Observable<Boolean>
 
     @Query("SELECT * FROM ItemsEntity")
-    fun getItemsEntities():Flow<List<ItemsEntity>>
+    fun getItemsEntities():Observable<List<ItemsEntity>>
 
     @Query("UPDATE ItemsEntity SET isFavorite =:isFavorite WHERE description =:description")
     fun addToFavorite(description: String, isFavorite: Boolean)

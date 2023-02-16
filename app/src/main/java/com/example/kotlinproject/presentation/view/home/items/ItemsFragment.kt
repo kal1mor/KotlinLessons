@@ -46,6 +46,11 @@ class ItemsFragment : BaseFragment(), ItemsListener {
         recylerView.layoutManager = LinearLayoutManager(context)
         recylerView.adapter = itemsAdapter
 
+        viewMOdel.getData()
+        viewMOdel.items.observe(viewLifecycleOwner){
+            itemsAdapter.submitList(it)
+        }
+
         //Способ 1
 //        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
 //            viewMOdel.getData.collect()
@@ -60,20 +65,20 @@ class ItemsFragment : BaseFragment(), ItemsListener {
 //        }
 
         //Способ 3, вызов suspend ункции в model
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            viewMOdel.getDataSimple()
-        }
+//        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+//            viewMOdel.getDataSimple()
+//        }
 //        viewMOdel.items.observe(viewLifecycleOwner) { listItems ->
 //            itemsAdapter.submitList(listItems)
 //        }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            viewMOdel.items.collect{ flowList ->
-                flowList.collect{ list ->
-                    itemsAdapter.submitList(list)
-                }
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+//            viewMOdel.items.collect{ flowList ->
+//                flowList.collect{ list ->
+//                    itemsAdapter.submitList(list)
+//                }
+//            }
+//        }
         viewMOdel.message.observe(viewLifecycleOwner) { msg ->
             Toast.makeText(context, getString(msg), Toast.LENGTH_SHORT).show()
 
