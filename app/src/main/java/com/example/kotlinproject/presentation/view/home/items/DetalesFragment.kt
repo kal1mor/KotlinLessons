@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.FragmentDetalesBinding
@@ -17,7 +15,6 @@ import com.example.kotlinproject.utils.App
 import com.example.kotlinproject.utils.BaseFragment
 import com.example.kotlinproject.utils.BundleConstants.KEY_IMAGE_VIEW
 import com.squareup.picasso.Picasso
-import javax.inject.Inject
 
 
 class DetalesFragment : BaseFragment() {

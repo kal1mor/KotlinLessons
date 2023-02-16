@@ -1,6 +1,9 @@
 package com.example.kotlinproject.presentation.view.home.items
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +44,29 @@ class ItemsFragment : BaseFragment(), ItemsListener {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity().applicationContext as App).provideAppComponent().inject(this)
+
+        val h: Handler = object : Handler() {
+            override fun handleMessage(msg: Message) {
+                if (msg.what === 0) {
+                    Log.w("ui can be updated", "called")
+                } else {
+                    Log.w("error", "shown")
+                }
+            }
+        }
+        val t: Thread = object : Thread() {
+            override fun run() {
+                Log.w("heavy work", "executing")
+                if (false) { //true
+                    //we can't update the UI from here so we'll signal our handler and it will do it for us.
+                    h.sendEmptyMessage(0)
+                } else {
+                    h.sendEmptyMessage(1)
+                }
+            }
+        }
+        t.start()
+
         itemsAdapter = ItemsAdapter(this)
         val recylerView = view.findViewById<RecyclerView>(R.id.rcView)
         recylerView.layoutManager = LinearLayoutManager(context)
