@@ -81,4 +81,7 @@ dependencies {
 
     //Animation
     implementation 'com.github.AtifSayings:Animatoo:1.0.1'
+
+    //Google service location
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }

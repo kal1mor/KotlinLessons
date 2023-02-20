@@ -1,9 +1,15 @@
 package com.example.kotlinproject.presentation.view.home.items
 
+import android.content.Context.LOCATION_SERVICE
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -44,5 +50,27 @@ class FavoritesFragment : BaseFragment() {
         viewModel.favorites.observe(viewLifecycleOwner){
             favAdapter.submitList(it)
         }
+
+        var locationManager: LocationManager? = null
+
+        locationManager = requireActivity().getSystemService(LOCATION_SERVICE) as LocationManager?
+        try{
+            locationManager?.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                0L,
+                0.0f,
+                locationListener
+            )
+        }catch (e: Exception){
+            Log.d("myTag", "Security exception, no location available")
+        }
+    }
+
+    private val locationListener = LocationListener { location ->
+        Toast.makeText(
+            requireContext(),
+            "long: ${location.longitude.toString()} short: ${location.latitude.toString()}",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
