@@ -15,10 +15,10 @@ interface ItemsDao {
     fun insertItemsEntity(itemsEntity: ItemsEntity)
 
     @Query("SELECT (SELECT COUNT(*) FROM ItemsEntity) !=0")
-    fun doesItemsEntityExist(): Flow<Boolean>
+    fun doesItemsEntityExist(): Boolean
 
     @Query("SELECT * FROM ItemsEntity")
-    fun getItemsEntities():Flow<List<ItemsEntity>>
+    fun getItemsEntities(): List<ItemsEntity>
 
     @Query("UPDATE ItemsEntity SET isFavorite =:isFavorite WHERE description =:description")
     fun addToFavorite(description: String, isFavorite: Boolean)

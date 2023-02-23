@@ -27,31 +27,28 @@ class ItemsRepositoryImpl @Inject constructor(
 
     override suspend fun getData() {
         return withContext(Dispatchers.IO) {
-            itemsDao.doesItemsEntityExist().collect {
-                if (!it) {
-                    Log.w("getData", "data not exists")
-                    val response = apiService.getData()
+            val itemExist = itemsDao.doesItemsEntityExist()
+            if (!itemExist) {
+                Log.w("getData", "data not exists")
+                val response = apiService.getData()
 
-                    Log.w("getData", response.body()?.sampleList.toString())
-                    response.body()?.sampleList?.let {
-                        it.map {
-                            val itemsEntity =
-                                ItemsEntity(Random().nextInt(), it.description, it.imageUrl)
-                            itemsDao.insertItemsEntity(itemsEntity)
-                        }
+                Log.w("getData", response.body()?.sampleList.toString())
+                response.body()?.sampleList?.let {
+                    it.map {
+                        val itemsEntity =
+                            ItemsEntity(Random().nextInt(), it.description, it.imageUrl)
+                        itemsDao.insertItemsEntity(itemsEntity)
                     }
                 }
             }
         }
     }
 
-    override suspend fun showData(): Flow<List<ItemsModel>> {
+    override suspend fun showData(): List<ItemsModel> {
         return withContext(Dispatchers.IO) {
             val itemsEntity = itemsDao.getItemsEntities()
-            itemsEntity.map { itemsList ->
-                itemsList.map { item ->
-                    ItemsModel(item.id, item.description, item.imageUrl, item.isFavorite ?: false)
-                }
+            itemsEntity.map { item ->
+                ItemsModel(item.id, item.description, item.imageUrl, item.isFavorite ?: false)
             }
         }
     }

@@ -17,7 +17,7 @@ class ItemsViewModel @Inject constructor(
     private val itemsInteractor: ItemsInteractor
 ) : ViewModel() {
 
-    val items = flow<Flow<List<ItemsModel>>>{ emit(itemsInteractor.showData()) }
+
     val getData = flow {emit(itemsInteractor.getData())}
 
     private val _trigger = MutableLiveData<Flow<Unit>>()
@@ -25,6 +25,9 @@ class ItemsViewModel @Inject constructor(
 
     private val _message = MutableLiveData<Int>()
     val message: LiveData<Int> = _message
+
+    private val _items = MutableLiveData<List<ItemsModel>>()
+    val items: LiveData<List<ItemsModel>> = _items
 
     private val _bundle = MutableLiveData<NavigateWithBundle?>()
     val bundle: LiveData<NavigateWithBundle?> = _bundle
@@ -35,24 +38,19 @@ class ItemsViewModel @Inject constructor(
     fun getData() {
         viewModelScope.launch {
             try {
-                _trigger.value = flow { emit(itemsInteractor.getData()) }
-//                itemsInteractor.getData()
+                itemsInteractor.getData()
             }catch (e: Exception){
                 _error.value = e.message.toString()
             }
         }
 
-//        viewModelScope.launch {
-//            try {
-//
-//                val listItems = itemsInteractor.showData()
-//                listItems.collect{
-//                    _items.value = it
-//                }
-//            }catch (e: Exception){
-//                _error.value = e.message.toString()
-//            }
-//        }
+        viewModelScope.launch {
+            try {
+                _items.value = itemsInteractor.showData()
+            }catch (e: Exception){
+                _error.value = e.message.toString()
+            }
+        }
     }
 
     fun imageViewClicked() {

@@ -63,17 +63,10 @@ class ItemsFragment : BaseFragment(), ItemsListener {
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             viewMOdel.getDataSimple()
         }
-//        viewMOdel.items.observe(viewLifecycleOwner) { listItems ->
-//            itemsAdapter.submitList(listItems)
-//        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            viewMOdel.items.collect{ flowList ->
-                flowList.collect{ list ->
-                    itemsAdapter.submitList(list)
-                }
-            }
+        viewMOdel.items.observe(viewLifecycleOwner) { listItems ->
+            itemsAdapter.submitList(listItems)
         }
+        viewMOdel.getData()
         viewMOdel.message.observe(viewLifecycleOwner) { msg ->
             Toast.makeText(context, getString(msg), Toast.LENGTH_SHORT).show()
 
